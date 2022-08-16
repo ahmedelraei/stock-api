@@ -26,6 +26,7 @@ services:
         environment:
             - MQTT_HOST=vernemq
             - MQTT_PORT=1883
+            - MQTT_TOPIC=thndr-trading
         build: .
         command: uvicorn app.main:app --host 0.0.0.0
         container_name: "stock_core_api"
