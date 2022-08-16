@@ -22,7 +22,7 @@ services:
         depends_on:
             - vernemq
         
-    core_api:
+    stock_core_api:
         environment:
             - MQTT_HOST=vernemq
             - MQTT_PORT=1883
