@@ -10,6 +10,10 @@ services:
         image: erlio/docker-vernemq
         logging:
             driver: none
+        expose:
+            - 1883
+        ports:
+            - "1883:1883" 
 
     streamer:
         environment:
