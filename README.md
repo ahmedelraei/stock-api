@@ -8,7 +8,7 @@ docker-compose up -d
 
 ## Testing
 
-- install requirements
+- install requirements then run
 
 ```bash
 pytest
