@@ -46,7 +46,6 @@ class Stock:
 
     @classmethod
     def process_prices(cls, stock: Self):
-        # if stock.hour_peak["timestamp"].hour == datetime.utcnow().hour:
         if (
             stock.timestamp.hour > stock.hour_peak["timestamp"].hour
             or max(stock.price, stock.hour_peak["price"]) == stock.price
