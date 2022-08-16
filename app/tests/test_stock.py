@@ -1,4 +1,6 @@
 from fastapi.testclient import TestClient
+
+from ..models.stock import Stock
 from ..main import app
 from ..config import settings
 import unittest
@@ -17,16 +19,18 @@ class TestStock(unittest.TestCase):
         self.client = mqtt_client
         self.broker = settings.MQTT_HOST
         self.port = 1883
-        self.stock_id = settings.TEST_STOCK_ID
+        self.stock_id: str
+        self.test_connection()
         test_deposit()
 
     def test_connection(self):  # test to check connection to broker
         connected = self.client.connect(self.broker, self.port)
         self.client.loop_start()
         time.sleep(2)
+        self.stock_id = Stock.all()[0].id
         self.assertTrue(connected == 0)
 
-    def test_stock_list(self):
+    def test_stock(self):
         response = client.get("/stock/")
         self.assertTrue(response.status_code)
 
