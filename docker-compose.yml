@@ -1,0 +1,43 @@
+version: '3.5'
+
+services:
+
+    vernemq:
+        environment:
+            - DOCKER_VERNEMQ_ACCEPT_EULA=yes
+            - DOCKER_VERNEMQ_ALLOW_ANONYMOUS=on
+            - MQTT_TOPIC=thndr-trading
+        image: erlio/docker-vernemq
+        logging:
+            driver: none
+        expose:
+            - 1883
+        ports:
+            - "1883:1883" 
+
+    streamer:
+        environment:
+            - MQTT_HOST=vernemq
+            - MQTT_PORT=1883
+            - MQTT_TOPIC=thndr-trading
+        image: thndr/streamer:0.2
+        logging:
+            driver: none
+        depends_on:
+            - vernemq
+        
+    core_api:
+        environment:
+            - MQTT_HOST=vernemq
+            - MQTT_PORT=1883
+        build: .
+        command: uvicorn app.main:app --host 0.0.0.0
+        container_name: "stock_core_api"
+
+        ports:
+            - "80:8000"
+        volumes:
+            - ./app:/app
+        depends_on:
+            - vernemq
+
