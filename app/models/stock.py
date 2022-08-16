@@ -5,7 +5,6 @@ from typing_extensions import Self
 class Stock:
     """Stock Model"""
 
-    # TODO: add change percentage
     stocks = {}
 
     def __init__(
@@ -31,11 +30,13 @@ class Stock:
             "timestamp": timestamp,
             "price": price,
         }
+        self.change = 0
         self.stocks[stock_id] = self
 
     def __iter__(self):
         yield "id", self.id
         yield "price", self.price
+        yield "change", self.change
         yield "availability", self.availability
         yield "day_peak", self.day_peak["price"]
         yield "day_bottom", self.day_bottom["price"]
@@ -87,6 +88,10 @@ class Stock:
         timestamp: datetime = datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S.%f")
         stock = cls.get(stock_id)
         if stock:
+            try:
+                stock.change = round(((price - stock.price) / stock.price) * 100, 2)
+            except ZeroDivisionError:
+                stock.change = round(((price - stock.price) / 1) * 100, 2)
             stock.name = name
             stock.price = price
             stock.availability = availability

@@ -3,7 +3,6 @@ from .consumer import client
 from .config import settings
 from .routes import main_router
 from .models.user import User
-import threading
 
 app = FastAPI()
 app.include_router(main_router)

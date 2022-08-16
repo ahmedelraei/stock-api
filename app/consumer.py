@@ -3,6 +3,7 @@ import json
 from .models.stock import Stock
 from .config import settings
 
+
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
     client.subscribe(settings.MQTT_TOPIC)
