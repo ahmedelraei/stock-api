@@ -8,8 +8,6 @@ import time
 from ..consumer import client as mqtt_client
 from .test_user import test_deposit
 
-unittest.TestLoader.sortTestMethodsUsing = None
-
 
 client = TestClient(app)
 
@@ -19,14 +17,13 @@ class TestStock(unittest.TestCase):
         self.client = mqtt_client
         self.broker = settings.MQTT_HOST
         self.port = 1883
-        self.stock_id: str
-        self.test_connection()
+        self.stock_id: str = ""
         test_deposit()
 
     def test_connection(self):  # test to check connection to broker
         connected = self.client.connect(self.broker, self.port)
         self.client.loop_start()
-        time.sleep(2)
+        time.sleep(3)
         self.stock_id = Stock.all()[0].id
         self.assertTrue(connected == 0)
 
