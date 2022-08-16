@@ -8,8 +8,9 @@ docker-compose up -d
 
 ## Testing
 
-- Add
+- install requirements
 
 ```bash
+pytest
 
 ```
