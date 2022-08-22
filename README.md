@@ -1,5 +1,7 @@
 # Stock API With FastAPI and VerneMQ
 
+- Documrntation available at /docs
+
 ## Run
 
 ```bash
