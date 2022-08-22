@@ -1,6 +1,6 @@
 # Stock API With FastAPI and VerneMQ
 
-- Documrntation available at /docs
+- Documentation available at /docs
 
 ## Run
 
